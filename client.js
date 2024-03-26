@@ -43,15 +43,60 @@ console.log('array of employee data: ',  employees );
 // This is not a race. Everyone on your team should understand what is happening.
 // Ask questions when you don't.
 
-
+rob = 
+{
+  name: 'Robert',
+  employeeNumber: '26835',
+  annualSalary: '66000',
+  reviewRating: 1
+};
 
 
 // This function will calculate 1 employee's bonus!
 //
 function calculateIndividualEmployeeBonus( employee ) {  
   // your logic here
-  
+  let percentage = 0;
+  if (employee.reviewRating <= 2) {
+    percentage = 0;
+  } else if (employee.reviewRating === 3) {
+    percentage = 0.04;
+  } else if (employee.reviewRating === 4) {
+    percentage = 0.06;
+  } else if (employee.reviewRating === 5) {
+    percentage = 0.10;
+  }
+  if (employee.employeeNumber.length === 4) {
+    percentage += 0.05;
+  }
+  // we assume that this is a separate condition:
+  if (employee.annualSalary > 65000) {
+    percentage -= 0.01;
+  }
+  if (percentage < 0) {
+    percentage = 0;
+  }
+  if (percentage > 0.13) {
+    percentage = 0.13;
+  }
+
+  let bonus = employee.annualSalary * percentage;
+  bonus = Math.round(bonus);
+
+  let compensation = employee.annualSalary + bonus;
+
+  let employeeBonus = {
+    name: employee.name,
+    bonusPercentage: percentage,
+    totalCompensation: compensation,
+    totalBonus: bonus,
+  }
+  return employeeBonus;
+}
+
+
   
   // return new object with bonus results
 
-}
+
+  console.log(calculateIndividualEmployeeBonus(rob));
