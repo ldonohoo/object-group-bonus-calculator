@@ -70,7 +70,7 @@ function calculateIndividualEmployeeBonus( employee ) {
     percentage += 0.05;
   }
   // we assume that this is a separate condition:
-  if (employee.annualSalary > 65000) {
+  if (Number(employee.annualSalary) > 65000) {
     percentage -= 0.01;
   }
   if (percentage < 0) {
@@ -80,10 +80,10 @@ function calculateIndividualEmployeeBonus( employee ) {
     percentage = 0.13;
   }
 
-  let bonus = employee.annualSalary * percentage;
+  let bonus = Number(employee.annualSalary) * percentage;
   bonus = Math.round(bonus);
 
-  let compensation = employee.annualSalary + bonus;
+  let compensation = Number(employee.annualSalary) + bonus;
 
   let employeeBonus = {
     name: employee.name,
@@ -100,3 +100,17 @@ function calculateIndividualEmployeeBonus( employee ) {
 
 
   console.log(calculateIndividualEmployeeBonus(rob));
+
+
+function calculateBonuses(employees) {
+  let employeeData;
+  for (let employee of employees) {
+    employeeData = calculateIndividualEmployeeBonus(employee);
+    console.log(`Employee ${employeeData.name} receives a ${employeeData.bonusPercentage*100}% `);
+    console.log(`   bonus on his ${employeeData.totalCompensation-employeeData.totalBonus} salary,`);
+    console.log(`   for a total bonus of $${employeeData.totalBonus}, making their total compensation`);
+    console.log(`   of $${employeeData.totalCompensation}.`);
+  }
+}
+
+calculateBonuses(employees);
